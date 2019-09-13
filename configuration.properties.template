@@ -13,8 +13,6 @@ serverQName=CODICE-PROVIDER
 
 env=AMBIENTE 
 
-#env=
-
 dblogtype=remote
 
 logdblib=SMEUP_DAT
