@@ -23,6 +23,75 @@ atitle=(zero one two three four five)
 # testo
 alabel=(zero one two three four five)
 
+function checkfield() {
+## controlli specifici per campo
+lenvar=${#fldval}
+## TODO: togliere echo una volta terminata la fase di test 
+echo $fldnam
+echo $fldval
+echo $lenvar
+if [ ${lenvar} -ne 6 ] && [ ${fldnam} = 'serverQName' ]; then
+    whiptail --msgbox "Il nome della coda dati deve essere lungo 6 !" 10 60
+    eval fldval=''
+    return 1
+elif  [ ${fldnam} = 'server' ]; then
+    checkip
+    if [ $? -ne 0 ]; then
+        whiptail --msgbox "Indirizzo del server non valido !" 10 60
+        eval fldval=''
+        return 1
+    else
+        return 0
+    fi
+else
+    return 0
+fi
+}
+
+function checkip() 
+{
+    local ip=$fldval
+    local stat=1
+
+    if [[ $ip =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
+        OIFS=$IFS
+        IFS='.'
+        ip=($ip)
+        IFS=$OIFS
+        [[ ${ip[0]} -le 255 && ${ip[1]} -le 255 \
+            && ${ip[2]} -le 255 && ${ip[3]} -le 255 ]]
+        stat=$?
+    fi
+    if [ $stat -ne 0 ]; then
+        get_ip
+        stat=$?
+    fi
+
+    return $stat
+}
+
+function get_ip {
+
+    local ip_address=''
+    local hostname=$fldval
+
+    # query A record for IPv4  by default, use AAAA for IPv6
+    local query_type="A"
+
+    # check
+    host -t ${query_type}  ${hostname} &>/dev/null
+    if [ "$?" -eq "0" ]; then
+        # get
+        ip_address="$(host -t ${query_type} ${hostname} | awk '/has.*address/ {print $NF; exit}')"
+        return 0
+    else
+        return 1
+    fi
+    ## TODO: togliere echo una volta terminata la fase di test 
+    echo $ip_address
+}
+
+
 X=0
 while [ $X -le $MX ] 
 do
@@ -231,10 +300,17 @@ while [ $V -le $[$MX+1] ]; do
                     echo $V
                     echo "break"
                     break
-               elif [ ! -z ${resval[$V]} ]; then
-                    eval defval[$V]=${resval[$V]}
-                    V=$[$V+1]
-                    break
+                elif [ ! -z ${resval[$V]} ]; then
+                    fldval=${resval[$V]}
+                    fldnam=${scpkey[$V]}
+                    checkfield
+                    if [ $? -ne 0 ]; then
+                        eval resval[$V]=''
+                    else
+                        eval defval[$V]=${fldval}
+                        V=$[$V+1]
+                        break
+                    fi
                 fi
             done
             ### TODO: togliere echo una volta terminata la fase di test 
