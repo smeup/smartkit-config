@@ -34,6 +34,14 @@ if [ ${lenvar} -ne 6 ] && [ ${fldnam} = 'serverQName' ]; then
     whiptail --msgbox "Il nome della coda dati deve essere lungo 6 !" 10 60
     eval fldval=''
     return 1
+elif [ ${lenvar} -gt 10 ] && [ ${fldnam} = 'env' ]; then
+    whiptail --msgbox "Il codice ambiente ha lunghezza massima 10 !" 10 60
+    eval fldval=''
+    return 1
+elif [ ${lenvar} -gt 10 ] && [ ${fldnam} = 'user' ]; then
+    whiptail --msgbox "Il nome utente ha lunghezza massima 10 !" 10 60
+    eval fldval=''
+    return 1
 elif  [ ${fldnam} = 'server' ]; then
     checkip
     if [ $? -ne 0 ]; then
