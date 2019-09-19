@@ -216,6 +216,7 @@ while [ $V -le $[$MX+1] ]; do
     if [ $V -eq 0 ]; then   
         ### TODO: togliere echo una volta terminata la fase di test 
         echo 'primo'
+        ## Qui entra al primo giro per chiedere se SmeUP o NON SmeUP
         ## per ogni variabile testo che il valore sia stato impostato;
         ## in caso contrario ciclo e riemetto la richiesta.
         ## se l'utente preme 'cancel' esco
@@ -242,6 +243,7 @@ while [ $V -le $[$MX+1] ]; do
         done
         V=1
     elif [ $V -eq $[$MX+1] ]; then
+        ## Qui entra alla fine (dopo che ho fatto tutte le domande) per riepilogare e scrivere il file proprieties
         riepilogo=' '
         X=0
         while [ $X -le $MX ] 
@@ -281,8 +283,8 @@ while [ $V -le $[$MX+1] ]; do
         fi
         exit
     else
+        ## Qui passa chiedendo le domande dalla 2a all'ultima compresa
         ### TODO: togliere echo una volta terminata la fase di test 
-        echo "pre domanda"
         echo $V
         if  [ ${scpkey[$V]} = 'env' ] && [ ${resval[0]} = '2' ]; then
                 resval[$V]=''
