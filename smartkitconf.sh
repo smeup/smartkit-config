@@ -228,7 +228,7 @@ while [ $V -le $[$MX+1] ]; do
             "2" "NON Sme.UP" ${_D_SME2}  3>&1 1>&2 2>&3)
             exitstatus=$?
             if [ $exitstatus != 0 ]; then
-                exit
+                return
             else
                 if  [ ${resval[$V]} = '1' ]; then
                     eval _D_SME1=ON
