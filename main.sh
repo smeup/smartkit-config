@@ -1,5 +1,7 @@
 #!/bin/bash
 
+fileconfig="configuration.properties"
+
 while true
 do
 
@@ -12,7 +14,14 @@ do
         if [ "$menuChoose" = "Base" ]; then
             source smartkitconf.sh
         elif [ "$menuChoose" = "Paths" ]; then
-            source pathsConf.sh
+            echo "scelto Paths"
+            if [ -f "$fileconfig" ]; then
+                echo "file esiste"
+                source pathsConf.sh
+            else
+                echo "file NON esiste"
+                whiptail --title "Attenzione" --msgbox "File configurazione non trovato, esequire prima 'Configurazioni di base'" 8 78
+            fi
         fi
     else
         break
