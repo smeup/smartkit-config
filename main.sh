@@ -9,9 +9,9 @@ menuChoose=$(whiptail --title "Menu configurazione" --menu "Configurazione:" 25 
 exitstatus=$?
 if [ "$exitstatus" = 0 ]; then
     if [ "$menuChoose" = "Base" ]; then
-        source tstpath.sh
-    elif [ "$menuChoose" = "Paths" ]; then
         source smartkitconf.sh
+    elif [ "$menuChoose" = "Paths" ]; then
+        source pathsConf.sh
     else
         break
     fi

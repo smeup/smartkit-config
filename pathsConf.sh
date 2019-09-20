@@ -12,7 +12,7 @@ function paths_configuration () {
         exitstatus=$?
         if [ $exitstatus = 0 ]; then
             until [ ! -z ${_LIN[$n]} ]; do
-                _LIN[$n]=$(whiptail --title "Paths configuration ($n)" --backtitle "WIN($n)=${_WIN[$n]}     " --inputbox "Linux:" $_BOX_H $_BOX_W "" 3>&1 1>&2 2>&3)
+                _LIN[$n]=$(whiptail --title "Paths configuration ($n)" --backtitle "WIN($n)=${_WIN[$n]}" --inputbox "Windows:${_WIN[$n]} \n Linux:" $_BOX_H $_BOX_W "" 3>&1 1>&2 2>&3)
                 exitstatus=$?
                 if [ $exitstatus != 0 ]; then
                     exit
