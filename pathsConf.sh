@@ -44,7 +44,7 @@ function paths_configuration () {
                     continue
                 fi
         else
-            return return
+            return
         fi
     done
 }
@@ -56,15 +56,22 @@ if [ ! -f "$_FILE_CONFIG" ]; then
 fi
 
 # Chiede all'utente numero di coppie (WIN/LIN) di path da gestire (previste max 9 coppie)
-_PATH_NUM=$(whiptail --title "${_TITLE}" --inputbox "Nr. di path da gestire (max ${_MAX_NUM_PATHS}):" $_BOX_H $_BOX_W "" 3>&1 1>&2 2>&3)
-exitstatus=$?
-if [ $exitstatus = 0 ] && [ $_PATH_NUM -gt 0 ]; then
-    paths_configuration
-    echo "Configurati ${n} paths:"
-    for ((x=0;x<$n;x++))
-    do
-        echo "WIN($x)=${_WIN[$x]} - LIN($x)=${_LIN[$x]}"
-    done
-else
-    return
-fi
+while true
+do
+    _PATH_NUM=$(whiptail --title "${_TITLE}" --inputbox "Nr. di path da gestire (max ${_MAX_NUM_PATHS}):" $_BOX_H $_BOX_W "" 3>&1 1>&2 2>&3)
+    exitstatus=$?
+    if [ $exitstatus = 0 ] && [ $_PATH_NUM -gt 9 ]; then
+        whiptail --title "Attenzione" --msgbox "Previste al massimo 9 coppie (WIN/LIN) di path di configurazione" $_BOX_H $_BOX_W
+        continue
+    fi
+    if [ $exitstatus = 0 ] && [ $_PATH_NUM -gt 0 ]; then
+        paths_configuration
+        echo "Configurati ${n} paths:"
+        for ((x=0;x<$n;x++))
+        do
+            echo "WIN($x)=${_WIN[$x]} - LIN($x)=${_LIN[$x]}"
+        done
+    else
+        return
+    fi
+done
