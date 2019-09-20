@@ -74,8 +74,8 @@ while true
 do
     _PATH_NUM=$(whiptail --title "${_TITLE}" --inputbox "Nr. di path da gestire (max ${_MAX_NUM_PATHS}):" $_BOX_H $_BOX_W "" 3>&1 1>&2 2>&3)
     exitstatus=$?
-    if [ $exitstatus = 0 ] && [ $_PATH_NUM -gt 9 ]; then
-        whiptail --title "Attenzione" --msgbox "Previste al massimo 9 coppie (WIN/LIN) di path di configurazione" $_BOX_H $_BOX_W
+    if [ $exitstatus = 0 ] && [ $_PATH_NUM -gt $_MAX_NUM_PATHS ]; then
+        whiptail --title "Attenzione" --msgbox "Previste al massimo ${_MAX_NUM_PATHS} coppie (WIN/LIN) di path di configurazione" $_BOX_H $_BOX_W
         continue
     fi
     if [ $exitstatus = 0 ] && [ $_PATH_NUM -gt 0 ]; then
