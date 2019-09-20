@@ -49,6 +49,20 @@ function paths_configuration () {
     done
 }
 
+function save_paths () {
+    # Scrive variabili legate ai path MAPPING_PATH_ su file di configurazione
+    suffix=0
+    for ((x=0;x<$n;x++))
+    do
+        ((suffix++))
+        echo "WIN($x)=${_WIN[$x]} - LIN($x)=${_LIN[$x]}"
+
+        toReplace="MAPPING_PATH_0$suffix=WIN() LIN()"
+        replaceWith="MAPPING_PATH_0$suffix=WIN(${_WIN[$x]}) LIN(${_LIN[$x]})"
+        sed -i "s/${toReplace}/${replaceWith}/" $_FILE_CONFIG
+    done
+}
+
 # MAIN
 if [ ! -f "$_FILE_CONFIG" ]; then
     whiptail --title "Attenzione" --msgbox "File configurazione non trovato, esequire prima 'Configurazioni di base'" $_BOX_H $_BOX_W
@@ -66,11 +80,13 @@ do
     fi
     if [ $exitstatus = 0 ] && [ $_PATH_NUM -gt 0 ]; then
         paths_configuration
-        echo "Configurati ${n} paths:"
-        for ((x=0;x<$n;x++))
-        do
-            echo "WIN($x)=${_WIN[$x]} - LIN($x)=${_LIN[$x]}"
-        done
+        if [ $n -gt 0 ]; then
+            if (whiptail --title "${_TITLE}" --yesno "Salvare i ${n} paths configurati?" $_BOX_H $_BOX_W); then
+                save_paths
+            fi
+            return
+        fi
+        return
     else
         return
     fi
