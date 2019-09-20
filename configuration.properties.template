@@ -26,9 +26,9 @@ logdblib=SMEUP_DAT
 
 # tra il percorso Windows e quello dove viene montato in Linux
 
-# esempio 
+# esempio di mapping path:
 
-# MAPPING_PATH_01=WIN(\\server01.xyz.com\azienda01\share1) LIN(/mnt/payara/server01-share1)
+#    WIN(\\server01.xyz.com\azienda01\share1) LIN(/mnt/payara/server01-share1)
 
 # sono predisposte 9 copie, 
 
