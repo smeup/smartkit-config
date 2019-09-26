@@ -12,7 +12,7 @@ do
         if [ "$menuChoose" = "Configurazione" ]; then
             source showConf.sh
         elif [ "$menuChoose" = "Base" ]; then
-            source smartkitconf.sh
+            source smartkitConf.sh
         elif [ "$menuChoose" = "Paths" ]; then
             source pathsConf.sh
         fi

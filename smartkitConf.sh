@@ -26,10 +26,7 @@ alabel=(zero one two three four five)
 function checkfield() {
 ## controlli specifici per campo
 lenvar=${#fldval}
-## TODO: togliere echo una volta terminata la fase di test 
-echo $fldnam
-echo $fldval
-echo $lenvar
+
 if [ ${lenvar} -ne 6 ] && [ ${fldnam} = 'serverQName' ]; then
     whiptail --msgbox "Il nome della coda dati deve essere lungo 6 !" 10 60
     eval fldval=''
@@ -95,10 +92,7 @@ function get_ip {
     else
         return 1
     fi
-    ## TODO: togliere echo una volta terminata la fase di test 
-    echo $ip_address
 }
-
 
 X=0
 while [ $X -le $MX ] 
@@ -161,8 +155,6 @@ while IFS='=' read -r key value
 do
     case $key in
     user | password | server | serverQName | env)
-        ### TODO: togliere echo una volta terminata la fase di test 
-        echo $key
         X=0
         while [ $X -le $MX ] 
         do
@@ -197,25 +189,11 @@ else
     eval _D_SME2=OFF
 fi
 
-### TODO: togliere echo una volta terminata la fase di test 
-echo "_D_SME1 $_D_SME1"
-echo "_D_SME2 $_D_SME2"
-echo ${scpkey[*]}
-echo ${scpval[*]}
-echo ${resval[*]}
-echo ${defval[*]}
-echo ${atitle[*]}
-echo ${alabel[*]}
-
 V=0
 ### TODO: togliere echo una volta terminata la fase di test 
 echo $V
 while [ $V -le $[$MX+1] ]; do
-    ### TODO: togliere echo una volta terminata la fase di test 
-    echo $V
     if [ $V -eq 0 ]; then   
-        ### TODO: togliere echo una volta terminata la fase di test 
-        echo 'primo'
         ## Qui entra al primo giro per chiedere se SmeUP o NON SmeUP
         ## per ogni variabile testo che il valore sia stato impostato;
         ## in caso contrario ciclo e riemetto la richiesta.
@@ -265,32 +243,27 @@ while [ $V -le $[$MX+1] ]; do
             ## la riga con env= va commentata
                 sed -i "s/env=/#env=/" $fileconfig
             fi
-            ### TODO: togliere echo una volta terminata la fase di test 
-            echo ${scpkey[*]}
-            echo ${scpval[*]}
-            echo ${resval[*]}
             X=1
             while [ $X -le $MX ] 
             do
-                ### TODO: togliere echo una volta terminata la fase di test 
-                echo "s/${scpkey[$X]}=${scpval[$X]}/${scpkey[$X]}=${resval[$X]}/"
                 sed -i "s/${scpkey[$X]}=${scpval[$X]}/${scpkey[$X]}=${resval[$X]}/" $fileconfig
                 X=$[$X+1]
             done
 
-            ### TODO: visualizzazione del file di properties da togliere una volta terminata la fase di test
-            less $fileconfig
+            # Legge file di configurazione per emissione a video riepilogo
+            while IFS= read -r line
+            do
+                list="$list$line \n"  
+            done < "$fileconfig"
+            whiptail --title "${fileconfig}" --msgbox --scrolltext --defaultno "${list}" 20 80
+
         fi
-        exit
+        return
     else
         ## Qui passa chiedendo le domande dalla 2a all'ultima compresa
-        ### TODO: togliere echo una volta terminata la fase di test 
-        echo $V
         if  [ ${scpkey[$V]} = 'env' ] && [ ${resval[0]} = '2' ]; then
                 resval[$V]=''
                 V=$[$V+1]
-                ### TODO: togliere echo una volta terminata la fase di test 
-                echo $V
         else
             ## per ogni variabile testo che il valore sia stato impostato;
             ## in caso contrario ciclo e riemetto la richiesta.
@@ -298,17 +271,11 @@ while [ $V -le $[$MX+1] ]; do
             until [ ! -z ${resval[$V]} ]; do
                 resval[$V]=$(whiptail --title "${V} - ${atitle[$V]}" --cancel-button "indietro" --inputbox "${alabel[$V]}" 10 60 "${defval[$V]}" 3>&1 1>&2 2>&3)
                 exitstatus=$?
-                ### TODO: togliere echo una volta terminata la fase di test 
-                echo $exitstatus
-                echo ${resval[$V]}
                 if [ $exitstatus != 0 ]; then
                     V=$[$V-1]
                     if  [ $V -ge 0 ]; then
                         eval resval[$V]=''
                     fi
-                    ### TODO: togliere echo una volta terminata la fase di test 
-                    echo $V
-                    echo "break"
                     break
                 elif [ ! -z ${resval[$V]} ]; then
                     fldval=${resval[$V]}
@@ -323,9 +290,6 @@ while [ $V -le $[$MX+1] ]; do
                     fi
                 fi
             done
-            ### TODO: togliere echo una volta terminata la fase di test 
-            echo "post domanda"
-            echo $V
         fi
     fi
 done
