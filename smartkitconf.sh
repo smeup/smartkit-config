@@ -7,6 +7,7 @@
 ###########################################################
 
 # dichiaro gli array con 5 elementi
+## nell'assegnazione del valore non ci devono essere spazi
 MX=5
 # nome del parametro
 scpkey=(zero one two three four five)
@@ -25,11 +26,13 @@ alabel=(zero one two three four five)
 
 function checkfield() {
 ## controlli specifici per campo
+## il # prima della variabile serve a ottenere la lunghezza del valore contenuto 
 lenvar=${#fldval}
 ## TODO: togliere echo una volta terminata la fase di test 
 echo $fldnam
 echo $fldval
 echo $lenvar
+## nell'if bisogna mettere lo spazio successivo all'apertura della quadra, tra valore e operatore e prima della chiusura della quadra
 if [ ${lenvar} -ne 6 ] && [ ${fldnam} = 'serverQName' ]; then
     whiptail --msgbox "Il nome della coda dati deve essere lungo 6 !" 10 60
     eval fldval=''
