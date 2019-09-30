@@ -13,10 +13,15 @@ if [ ! -f "$_FILE_CONFIG" ]; then
 fi
 
 # Legge file di configurazione
+row=0
 while IFS= read -r line
 do
-    list="$list$line \n"  
+    row=$[$row+1]
+    list="${list} ${line} \n" 
+    if [ ${row} -eq 18 ]; then
+        list="${list}                                < PAGE DOWN SCROLL PAGINAZIONE >" 
+    fi 
 done < "$_FILE_CONFIG"
 
-whiptail --title "${_FILE_CONFIG}" --msgbox --scrolltext --defaultno "${list}" $_BOX_H $_BOX_W
+whiptail --title "${_FILE_CONFIG}" --msgbox --scrolltext "${list}" $_BOX_H $_BOX_W
 
