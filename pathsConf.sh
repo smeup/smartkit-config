@@ -61,7 +61,7 @@ function save_paths () {
         ((suffix++))
         echo "WIN($x)=${_WIN[$x]} - LIN($x)=${_LIN[$x]}"
         newPathString="MAPPING_PATH_0$suffix=WIN(${_WIN[$x]}) LIN(${_LIN[$x]})"
-        sed -i "$ a\ $newPathString" $_FILE_CONFIG
+        sed -i "$ a\\$newPathString" $_FILE_CONFIG
     done
 }
 
