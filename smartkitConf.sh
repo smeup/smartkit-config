@@ -247,7 +247,7 @@ while [ $V -le $[$MX+1] ]; do
             do
                 list="$list$line \n"  
             done < "$fileconfig"
-            whiptail --title "${fileconfig}" --msgbox --scrolltext --defaultno "${list}" 20 80
+            whiptail --title "${fileconfig}" --msgbox --scrolltext "${list}" 20 80
 
         fi
         return
