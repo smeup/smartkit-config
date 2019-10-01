@@ -1,10 +1,18 @@
 #!/bin/bash
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> fbcd5e35e16988e4e472ebcb46ce1aa8e2f5169c
 # Nr. max di path configurabili
 _MAX_NUM_PATHS=9
 
 _TITLE="Configurazione dei path Windows-Linux"
+<<<<<<< HEAD
 _FILE_CONFIG="/home/tron/container/smeup-provider-fe/config/smeup-provider-fe/configuration.properties"
+=======
+_FILE_CONFIG=$fileconfig
+>>>>>>> fbcd5e35e16988e4e472ebcb46ce1aa8e2f5169c
 
 # Funzione caricamento in memoria dei valori dei path (legge da file di configurazione)
 function load_paths (){
@@ -76,14 +84,17 @@ do
     _PATH_NUM=$(whiptail --title "${_TITLE}" --inputbox "Nr. di path da gestire (max ${_MAX_NUM_PATHS}):" $(stty size) "" 3>&1 1>&2 2>&3)
     exitstatus=$?
     if [ $exitstatus = 0 ] && [ $_PATH_NUM -gt $_MAX_NUM_PATHS ]; then
-        whiptail --title "Attenzione" --msgbox "Previste al massimo ${_MAX_NUM_PATHS} coppie (WIN/LIN) di path di configurazione" $_BOX_H $_BOX_W
+        whiptail --title "Attenzione" --msgbox "Previste al massimo ${_MAX_NUM_PATHS} coppie (WIN/LIN) di path di configurazione" $(stty size)
         continue
     fi
     if [ $exitstatus = 0 ] && [ $_PATH_NUM -gt 0 ]; then
         paths_configuration
         if [ $n -gt 0 ]; then
             if (whiptail --title "${_TITLE}" --yesno "Salvare i ${n} paths configurati?" $(stty size)); then
+<<<<<<< HEAD
                 remove_all_paths
+=======
+>>>>>>> fbcd5e35e16988e4e472ebcb46ce1aa8e2f5169c
                 save_paths
             fi
             return
