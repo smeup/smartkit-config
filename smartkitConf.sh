@@ -132,8 +132,7 @@ scpkey[$X]='env'
 atitle[$X]='Ambiente Sme.UP'
 alabel[$X]='Ambiente Sme.UP'
 
-fileconfig="configuration.properties"
-filetemplate="configuration.properties.template"
+fileconfig="${HOME}/container/smeup-provider-fe/config/smeup-provider-fe/configuration.properties"
 
 file=$fileconfig
 
@@ -141,14 +140,8 @@ if [ -f "$file" ]
 then
     echo "$file found."
 else
-    file=$filetemplate
-    if [ -f "$file" ]
-    then
-        echo "$file found."
-    else
-        echo "$file not found."
-        exit
-    fi
+    whiptail --msgbox "$file not found." 10 60
+    exit
 fi
 
 while IFS='=' read -r key value
@@ -233,9 +226,8 @@ while [ $V -le $[$MX+1] ]; do
         whiptail --title "Conferma configurazione" --yesno --scrolltext --defaultno "${riepilogo}"  20 80
 
         exitstatus=$?
-        ## copio il template e scrivo i parametri solo se l'utente ha confermato
+        ## scrivo i parametri solo se l'utente ha confermato
         if [ $exitstatus = 0 ]; then
-            cp -n $filetemplate $fileconfig
             if [ ${resval[0]} = '1' ]; then
             ## l'ambiente va impostato solo se Smart kit 'Sme.UP'
                 sed -i "s/#env=/env=/" $fileconfig
