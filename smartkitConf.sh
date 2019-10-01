@@ -28,21 +28,21 @@ function checkfield() {
 lenvar=${#fldval}
 
 if [ ${lenvar} -ne 6 ] && [ ${fldnam} = 'serverQName' ]; then
-    whiptail --msgbox "Il nome della coda dati deve essere lungo 6 !" 10 60
+    whiptail --msgbox "Il nome della coda dati deve essere lungo 6 !" $(stty size)
     eval fldval=''
     return 1
 elif [ ${lenvar} -gt 10 ] && [ ${fldnam} = 'env' ]; then
-    whiptail --msgbox "Il codice ambiente ha lunghezza massima 10 !" 10 60
+    whiptail --msgbox "Il codice ambiente ha lunghezza massima 10 !" $(stty size)
     eval fldval=''
     return 1
 elif [ ${lenvar} -gt 10 ] && [ ${fldnam} = 'user' ]; then
-    whiptail --msgbox "Il nome utente ha lunghezza massima 10 !" 10 60
+    whiptail --msgbox "Il nome utente ha lunghezza massima 10 !" $(stty size)
     eval fldval=''
     return 1
 elif  [ ${fldnam} = 'server' ]; then
     checkip
     if [ $? -ne 0 ]; then
-        whiptail --msgbox "Indirizzo del server non valido !" 10 60
+        whiptail --msgbox "Indirizzo del server non valido !" $(stty size)
         eval fldval=''
         return 1
     else
@@ -132,7 +132,7 @@ scpkey[$X]='env'
 atitle[$X]='Ambiente Sme.UP'
 alabel[$X]='Ambiente Sme.UP'
 
-fileconfig="${HOME}/container/smeup-provider-fe/config/smeup-provider-fe/configuration.properties"
+# fileconfig="${HOME}/container/smeup-provider-fe/config/smeup-provider-fe/configuration.properties"
 
 file=$fileconfig
 
@@ -140,7 +140,7 @@ if [ -f "$file" ]
 then
     echo "$file found."
 else
-    whiptail --msgbox "$file not found." 10 60
+    whiptail --msgbox "$file not found." $(stty size)
     exit
 fi
 
@@ -194,7 +194,7 @@ while [ $V -le $[$MX+1] ]; do
         ### per prima cosa scelgo se lo smart kit ha una configurazione Sme.UP o NON Sme.UP
         until [ ! -z ${resval[$V]} ]; do
             resval[$V]=$(whiptail --title "${V} - ${atitle[$V]}" --radiolist \
-            "${alabel[$V]}" 10 60 2 \
+            "${alabel[$V]}" $(stty size) 2 \
             "1" "Sme.UP" ${_D_SME1} \
             "2" "NON Sme.UP" ${_D_SME2}  3>&1 1>&2 2>&3)
             exitstatus=$?
@@ -223,7 +223,7 @@ while [ $V -le $[$MX+1] ]; do
             X=$[$X+1]
         done
         ## riepilogo i parametri impostati e chiedo conferma
-        whiptail --title "Conferma configurazione" --yesno --scrolltext --defaultno "${riepilogo}"  20 80
+        whiptail --title "Conferma configurazione" --yesno --scrolltext --defaultno "${riepilogo}"  $(stty size)
 
         exitstatus=$?
         ## scrivo i parametri solo se l'utente ha confermato
@@ -241,14 +241,13 @@ while [ $V -le $[$MX+1] ]; do
                 sed -i "s/${scpkey[$X]}=${scpval[$X]}/${scpkey[$X]}=${resval[$X]}/" $fileconfig
                 X=$[$X+1]
             done
+            if [ ${resval[0]} = '1' ]; then
+            ## se Smart kit 'Sme.UP' tolgo righe env vuote
+                sed -i "s/^env=$//" $fileconfig
+            fi
 
             # Legge file di configurazione per emissione a video riepilogo
-            while IFS= read -r line
-            do
-                list="$list$line \n"  
-            done < "$fileconfig"
-            whiptail --title "${fileconfig}" --msgbox --scrolltext "${list}" 20 80
-
+            source showConf.sh
         fi
         return
     else
@@ -261,7 +260,7 @@ while [ $V -le $[$MX+1] ]; do
             ## in caso contrario ciclo e riemetto la richiesta.
             ## se l'utente preme 'cancel' torno indietro alla domanda precedente
             until [ ! -z ${resval[$V]} ]; do
-                resval[$V]=$(whiptail --title "${V} - ${atitle[$V]}" --cancel-button "indietro" --inputbox "${alabel[$V]}" 10 60 "${defval[$V]}" 3>&1 1>&2 2>&3)
+                resval[$V]=$(whiptail --title "${V} - ${atitle[$V]}" --cancel-button "indietro" --inputbox "${alabel[$V]}" $(stty size) "${defval[$V]}" 3>&1 1>&2 2>&3)
                 exitstatus=$?
                 if [ $exitstatus != 0 ]; then
                     V=$[$V-1]

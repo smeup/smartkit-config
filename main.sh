@@ -1,8 +1,10 @@
 #!/bin/bash
 
+fileconfig="${HOME}/container/smeup-provider-fe/config/smeup-provider-fe/configuration.properties"
+
 while true
 do
-    menuChoose=$(whiptail --title "Menu configurazione" --menu "Configurazione:" 25 78 16 \
+    menuChoose=$(whiptail --title "Menu configurazione" --menu "Configurazione:" $(stty size) 16 \
     "Configurazione" "Visualizza configurazione" \
     "Base" "Imposta configurazione di base" \
     "Paths" "Imposta mapping Windows/Linux" \

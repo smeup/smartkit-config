@@ -8,7 +8,7 @@ _BOX_W=80
 _MAX_NUM_PATHS=9
 
 _TITLE="Configurazione dei path Windows-Linux"
-_FILE_CONFIG="${HOME}/container/smeup-provider-fe/config/smeup-provider-fe/configuration.properties"
+_FILE_CONFIG=$fileconfig
 
 # Funzione caricamento in memoria dei valori dei path (legge da file di configurazione)
 function load_paths (){
