@@ -22,7 +22,7 @@ do
         elif [ "$menuChoose" = "Paths" ]; then
             source pathsConf.sh
         elif [ "$menuChoose" = "Riavvio" ]; then
-            echo "not implemented yet"
+            source smartkitReboot.sh
         elif [ "$menuChoose" = "Zip" ]; then
             echo "not implemented yet"
         elif [ "$menuChoose" = "Aggiorna" ]; then
