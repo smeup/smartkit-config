@@ -4,7 +4,7 @@
 _BOX_H=25
 _BOX_W=100
 
-_FILE_CONFIG="configuration.properties"
+_FILE_CONFIG="${HOME}/container/smeup-provider-fe/config/smeup-provider-fe/configuration.properties"
 
 # MAIN
 if [ ! -f "$_FILE_CONFIG" ]; then
