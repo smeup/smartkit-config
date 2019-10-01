@@ -49,7 +49,7 @@ function remove_all_paths () {
     #rimuove tutte le righe dei path (che iniziano per "MAPPING_PATH_0"
     stringStartingWith="MAPPING_PATH_0"
     echo "Rimozione righe ${stringStartingWith}"
-    sed -i "/^${stringStartingWith}/d" $_FILE_CONFIG
+    sed -i "/^ ${stringStartingWith}/d" $_FILE_CONFIG
 }
 
 function save_paths () {
@@ -61,7 +61,7 @@ function save_paths () {
         ((suffix++))
         echo "WIN($x)=${_WIN[$x]} - LIN($x)=${_LIN[$x]}"
         newPathString="MAPPING_PATH_0$suffix=WIN(${_WIN[$x]}) LIN(${_LIN[$x]})"
-        #sed -i "a$newPathString" $_FILE_CONFIG
+        sed -i "$ a\ $newPathString" $_FILE_CONFIG
     done
 }
 
