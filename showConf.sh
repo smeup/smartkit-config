@@ -19,7 +19,7 @@ do
     row=$[$row+1]
     list="${list} ${line} \n" 
     if [ ${row} -eq 18 ]; then
-        list="${list}                                < PAGE DOWN SCROLL PAGINAZIONE >" 
+        list="${list}                                < PAG. GIÙ PER ALTRI DATI >" 
     fi 
 done < "$_FILE_CONFIG"
 
