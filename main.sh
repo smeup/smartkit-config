@@ -8,9 +8,10 @@ do
     "Configurazione" "Visualizza configurazione" \
     "Base" "Imposta configurazione di base" \
     "Paths" "Imposta mapping Windows/Linux" \
-    "Riavvio" "Riavvia" \
+    "RestartDocker" "Riavvia Provider FE" \
+    "Riavvio" "Riavvia Smart Kit" \
     "Zip" "Crea zip dei log" \
-    "Aggiorna" "Aggiorna provider" 3>&1 1>&2 2>&3)
+    "Aggiorna" "Aggiorna Provider FE" 3>&1 1>&2 2>&3)
 
 
     exitstatus=$?
@@ -21,6 +22,8 @@ do
             source smartkitConf.sh
         elif [ "$menuChoose" = "Paths" ]; then
             source pathsConf.sh
+        elif [ "$menuChoose" = "RestartDocker" ]; then
+            echo "not implemented yet"
         elif [ "$menuChoose" = "Riavvio" ]; then
             source smartkitReboot.sh
         elif [ "$menuChoose" = "Zip" ]; then
