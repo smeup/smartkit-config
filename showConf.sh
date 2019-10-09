@@ -1,6 +1,5 @@
 #!/bin/bash
 
-#_FILE_CONFIG="${HOME}/container/smeup-provider-fe/config/smeup-provider-fe/configuration.properties"
 _FILE_CONFIG=$fileconfig
 
 # MAIN

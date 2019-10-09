@@ -27,7 +27,7 @@ do
         elif [ "$menuChoose" = "Riavvio" ]; then
             source smartkitReboot.sh
         elif [ "$menuChoose" = "Zip" ]; then
-            echo "not implemented yet"
+            source smartkitMakeZip.sh
         elif [ "$menuChoose" = "Aggiorna" ]; then
             echo "not implemented yet"
         fi
