@@ -23,13 +23,13 @@ do
         elif [ "$menuChoose" = "Paths" ]; then
             source pathsConf.sh
         elif [ "$menuChoose" = "RestartDocker" ]; then
-            echo "not implemented yet"
+            source smartkitRestart.sh
         elif [ "$menuChoose" = "Riavvio" ]; then
             source smartkitReboot.sh
         elif [ "$menuChoose" = "Zip" ]; then
-            echo "not implemented yet"
+	    source smartkitMakeZip.sh
         elif [ "$menuChoose" = "Aggiorna" ]; then
-            echo "not implemented yet"
+            source smartkitUpdate.sh
         fi
     else
         break
