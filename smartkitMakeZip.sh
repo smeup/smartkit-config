@@ -1,7 +1,7 @@
 #!/bin/bash
 
 _TITLE="Conferma operazione richiesta"
-_DIR=/home/smeup/container/smeup-provider-fe/log
+_DIR="${HOME}/container/smeup-provider-fe/log"
 _LOG=$_DIR/`date +%Y%m%d%H%M%S`_logs.tar.gz
 
 if (whiptail --title "${_TITLE}" --yesno --defaultno "Sei sicuro di voler creare lo zip dei logs ?" 10 40) then
