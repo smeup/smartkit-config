@@ -48,8 +48,8 @@ function paths_configuration () {
 function remove_all_paths () {
     #rimuove tutte le righe dei path (che iniziano per "MAPPING_PATH_0"
     stringStartingWith="MAPPING_PATH_0"
-    echo "Rimozione righe ${stringStartingWith}"
-    sed -i "/^ ${stringStartingWith}/d" $_FILE_CONFIG
+    echo "Rimozione righe contenenti ${stringStartingWith} da file ${_FILE_CONFIG}"
+    sed -i "/${stringStartingWith}/d" $_FILE_CONFIG
 }
 
 function save_paths () {
