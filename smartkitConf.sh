@@ -42,7 +42,7 @@ elif [ ${lenvar} -gt 10 ] && [ ${fldnam} = 'user' ]; then
 elif  [ ${fldnam} = 'server' ]; then
     checkip
     if [ $? -ne 0 ]; then
-        whiptail --msgbox "Indirizzo del server non valido !" $(stty size)
+        whiptail --msgbox "Indirizzo del server non valido." $(stty size)
         eval fldval=''
         return 1
     else
