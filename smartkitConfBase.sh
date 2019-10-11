@@ -66,15 +66,20 @@ function checkip()
         [[ ${ip[0]} -le 255 && ${ip[1]} -le 255 \
             && ${ip[2]} -le 255 && ${ip[3]} -le 255 ]]
         stat=$?
+    else
+        stat=0
     fi
-    if [ $stat -ne 0 ]; then
-        get_ip
-        stat=$?
-    fi
+
+    # Not used cause "host" software is not installed into VM
+    #if [ $stat -ne 0 ]; then
+    #    get_ip
+    #    stat=$?
+    #fi
 
     return $stat
 }
 
+# Not used cause "host" software is not installed into VM
 function get_ip {
 
     local ip_address=''

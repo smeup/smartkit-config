@@ -17,11 +17,11 @@ do
     exitstatus=$?
     if [ "$exitstatus" = 0 ]; then
         if [ "$menuChoose" = "Configurazione" ]; then
-            source showConf.sh
+            source smartkitShowConf.sh
         elif [ "$menuChoose" = "Base" ]; then
-            source smartkitConf.sh
+            source smartkitConfBase.sh
         elif [ "$menuChoose" = "Paths" ]; then
-            source pathsConf.sh
+            source smartkitPathsConf.sh
         elif [ "$menuChoose" = "RestartDocker" ]; then
             source smartkitRestart.sh
         elif [ "$menuChoose" = "Riavvio" ]; then
