@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Nr. max di path configurabili
-_MAX_NUM_PATHS=9
+_MAX_NUM_PATHS=3
 
 _TITLE="Configurazione dei path Windows-Linux"
 _FILE_CONFIG=$fileconfig
@@ -53,6 +53,9 @@ function remove_all_paths () {
 }
 
 function save_paths () {
+    time=$(date +%Y-%m-%d_%H-%M-%S)
+    backupFileConfig="${time}_configuration.properties"
+    cp ${fileconfig} bak/${backupFileConfig}
     remove_all_paths
     # Scrive variabili legate ai path MAPPING_PATH_ su file di configurazione
     suffix=0

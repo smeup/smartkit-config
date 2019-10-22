@@ -233,6 +233,9 @@ while [ $V -le $[$MX+1] ]; do
         exitstatus=$?
         ## scrivo i parametri solo se l'utente ha confermato
         if [ $exitstatus = 0 ]; then
+            time=$(date +%Y-%m-%d_%H-%M-%S)
+            backupFileConfig="${time}_configuration.properties"
+            cp ${fileconfig} bak/${backupFileConfig}
             if [ ${resval[0]} = '1' ]; then
             ## l'ambiente va impostato solo se Smart kit 'Sme.UP'
                 sed -i "s/#env=/env=/" $fileconfig
