@@ -235,7 +235,7 @@ while [ $V -le $[$MX+1] ]; do
         if [ $exitstatus = 0 ]; then
             time=$(date +%Y-%m-%d_%H-%M-%S)
             backupFileConfig="${time}_configuration.properties"
-            cp ${fileconfig} bak/${backupFileConfig}
+            cp ${fileconfig} ${backupFolder}/${backupFileConfig}
             if [ ${resval[0]} = '1' ]; then
             ## l'ambiente va impostato solo se Smart kit 'Sme.UP'
                 sed -i "s/#env=/env=/" $fileconfig

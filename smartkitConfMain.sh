@@ -1,6 +1,14 @@
 #!/bin/bash
 
 fileconfig="${HOME}/container/smeup-provider-fe/config/smeup-provider-fe/configuration.properties"
+backupFolder="${HOME}/container/smeup-provider-fe/config/smeup-provider-fe/bak"
+
+if [ -d $backupFolder ]
+then
+    echo "Directory already exists"
+else
+    mkdir $backupFolder
+fi
 
 while true
 do

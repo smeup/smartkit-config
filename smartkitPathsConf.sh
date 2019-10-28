@@ -55,7 +55,7 @@ function remove_all_paths () {
 function save_paths () {
     time=$(date +%Y-%m-%d_%H-%M-%S)
     backupFileConfig="${time}_configuration.properties"
-    cp ${fileconfig} bak/${backupFileConfig}
+    cp ${fileconfig} ${backupFolder}/${backupFileConfig}
     remove_all_paths
     # Scrive variabili legate ai path MAPPING_PATH_ su file di configurazione
     suffix=0
