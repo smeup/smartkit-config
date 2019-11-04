@@ -268,7 +268,9 @@ while [ $V -le $[$MX+1] ]; do
             ## in caso contrario ciclo e riemetto la richiesta.
             ## se l'utente preme 'cancel' torno indietro alla domanda precedente
             until [ ! -z ${resval[$V]} ]; do
-                resval[$V]=$(whiptail --title "${V} - ${atitle[$V]}" --cancel-button "indietro" --inputbox "${alabel[$V]}" $(stty size) "${defval[$V]}" 3>&1 1>&2 2>&3)
+                defValToTrim=${defval[$V]}
+                defValTrimmed=`echo $defValToTrim`
+                resval[$V]=$(whiptail --title "${V} - ${atitle[$V]}" --cancel-button "indietro" --inputbox "${alabel[$V]}" $(stty size) "${defValTrimmed}" 3>&1 1>&2 2>&3)
                 exitstatus=$?
                 if [ $exitstatus != 0 ]; then
                     V=$[$V-1]
