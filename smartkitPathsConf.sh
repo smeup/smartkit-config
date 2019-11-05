@@ -74,7 +74,7 @@ if [ ! -f "$_FILE_CONFIG" ]; then
     return
 fi
 
-# Chiede all'utente numero di coppie (WIN/LIN) di path da gestire (previste max 9 coppie)
+# Chiede all'utente numero di coppie (WIN/LIN) di path da gestire (previste max 3 coppie)
 while true
 do
     _PATH_NUM=$(whiptail --title "${_TITLE}" --inputbox "Nr. di path da gestire (max ${_MAX_NUM_PATHS}):" $(stty size) "" 3>&1 1>&2 2>&3)
