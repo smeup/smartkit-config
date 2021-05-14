@@ -240,8 +240,18 @@ while [ $V -le $[$MX+1] ]; do
             ## l'ambiente va impostato solo se Smart kit 'Sme.UP'
                 sed -i "s/#env=/env=/" $fileconfig
             else
-            ## la riga con env= va commentata
+                ## Siamo nel caso di NON-SMEUP
+                ## la riga con env= va commentata
                 sed -i "s/env=/#env=/" $fileconfig
+
+                ## La riga con xmlini va decommentata e impostata su DEFAULT
+                ## per prendere xml di default
+                sed -i "/#xmlini=.*/a xmlini=DEFAULT" $fileconfig
+
+                ## Il ping deve essere disattivato
+                ## Lasciati entrambi per mantenere conpatibilità
+                sed -i "s/pingPeriod=100/#pingPeriod=100/" $fileconfig
+                sed -i "s/#pingPeriod=-1/pingPeriod=-1/" $fileconfig
             fi
             X=1
             while [ $X -le $MX ] 
